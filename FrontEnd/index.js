@@ -44,6 +44,7 @@ async function getWorks() {
     buttonDiv.appendChild(button);
     buttons.push(button);
   }
+  
 
   buttons[0].addEventListener("click", () => {
     let filter = works.filter((work) => work.category.id == buttons[0].id);
