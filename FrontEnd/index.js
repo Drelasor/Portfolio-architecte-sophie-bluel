@@ -33,34 +33,22 @@ async function getWorks() {
   const buttonDiv = document.getElementById("filter-buttons");
   displayWorks(works);
 
-  const buttons = [];
   console.log(works);
 
   //creation boutons
-  for (let categorie of categories) {
+  for (let categorie of [{id:-1, name:"tous"},...categories]) {
     const button = document.createElement("button");
-    button.id = categorie.id;
     button.innerHTML = categorie.name;
     buttonDiv.appendChild(button);
-    buttons.push(button);
+ 
+
+  button.addEventListener('click', () => (
+    displayWorks(
+      categorie.id === -1 ? works : works.filter((work) => work.category.id === categorie.id)
+    )
+  ))
   }
-  
-
-  buttons[0].addEventListener("click", () => {
-    let filter = works.filter((work) => work.category.id == buttons[0].id);
-    displayWorks(filter);
-  });
-
-  buttons[1].addEventListener("click", () => {
-    let filter = works.filter((work) => work.category.id == buttons[1].id);
-    displayWorks(filter);
-  });
-
-  buttons[2].addEventListener("click", () => {
-    let filter = works.filter((work) => work.category.id == buttons[2].id);
-    displayWorks(filter);
-  });
-}
+} 
 
 document.addEventListener("DOMContentLoaded", async function () {
   try {

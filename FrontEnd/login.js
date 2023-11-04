@@ -1,19 +1,24 @@
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', () => {
     const loginForm = document.getElementById('login-form');
-    loginForm.addEventListener('submit', function(event) {
+    loginForm.addEventListener('submit', async (event) =>{
         event.preventDefault();
-
+        debugger;
         const email= document.getElementById('email').value;
         const password = document.getElementById('password').value;
 
-        if (email === 'email' && password === 'password') {
-            const authToken = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsImlhdCI6MTY1MTg3NDkzOSwiZXhwIjoxNjUxOTYxMzM5fQ.JGN1p8YIfR-M-5eQ-Ypy6Ima5cKA4VbfL2xMr2MgHm4";
-            
-            localStorage.setItem('authToken', authToken);
+        const response = await fetch( "http://localhost:5678/api/users/login",{
+            method : POST,
+            headers: {
+               "Content-Type": "application/json",
+               Accept: "application/json",
+               Authorization: "Bearer" + token
+            },
+            body : JSON.stringify({email,password}),
+        });
 
-            window.location.href = 'dashboard.html';
-        } else {
-            alert('Nom d\'utilisateur ou mot de passe incorrect.');
-        }
-    });
-});
+     const data  = await response.json();
+
+     console.log(data.token)
+
+ });
+}) ;
