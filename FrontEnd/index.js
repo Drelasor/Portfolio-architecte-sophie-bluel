@@ -58,8 +58,3 @@ document.addEventListener("DOMContentLoaded", async function () {
   }
 });
 
-/*
-création bouton
-Addeventlistener
-
- */
