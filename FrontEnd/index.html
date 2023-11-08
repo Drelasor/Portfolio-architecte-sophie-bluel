@@ -12,6 +12,7 @@
 
 </head>
 <body>
+<div id="overlay"></div>
 <header>
 	<h1>Sophie Bluel <span>Architecte d'intérieur</span></h1>
 	<nav>
@@ -36,8 +37,37 @@
 		</article>
 	</section>
 	<section id="portfolio">
+		<div id="delete">
+			<h2>Galerie photo</h2>
+			<div id="gallery-modal"></div>
+			<button id ="addwork">Ajouter un projet</button>
+		</div>
+		<div id="add">
+			<div id="add-content">
+				<h1>Formulaire</h1>
+				<form id="form">
+					<label for="photo">Ajouter une photo :</label>
+					<input type="file" name="photo" id="photo" accept="image/*">
+					
+					<label for="texte">Champ de texte :</label>
+					<input type="text" name="texte" id="texte">
+					
+					<label for="choix">Choix :</label>
+					<select name="choix" id="choix">
+						<option value="option1">Option 1</option>
+						<option value="option2">Option 2</option>
+						<option value="option3">Option 3</option>
+					</select>
+					
+					<button type="button" id="valider">Valider</button>
+				</form>
+			</div>
+		</div>
+		<div id ="editor">
+			<h2>Mes Projets</h2>
+			<button id = "modify">modifier</button>
+		</div>
 		<div id="filter-buttons"></div>
-		<h2>Mes Projets</h2>
 		<div id="gallery"></div>
 	</section>
 	<section id="contact">

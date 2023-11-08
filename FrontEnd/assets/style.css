@@ -53,6 +53,16 @@ body {
 	font-family: 'Work Sans' ;
 	font-size: 14px;
 }
+#overlay {
+	display: none;
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	background-color: rgba(0, 0, 0, 0.7); 
+	z-index: 1; 
+  }
 header {
 	display: flex;
 	justify-content: space-between;
@@ -125,7 +135,50 @@ li:hover {
 	text-align: center;
 	margin-bottom: 1em;
 }
-.gallery {
+
+#delete {
+	padding: 100px;
+	display: none;
+	position: fixed;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	width: 630px;
+	background-color:white;
+	border-radius: 10px;
+	z-index: 2;
+}
+
+#gallery-modal{
+	width: 100%;
+	display: grid;
+	grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+	grid-column-gap: 5px;
+	grid-row-gap: 5px;
+}
+#delete img{
+	width: 90%;
+}
+
+#add{
+	padding: 100px;
+	display: block;
+	position: fixed;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	width: 630px;
+	background-color:white;
+	border-radius: 10px;
+	z-index: 2;
+}
+
+#form{
+	display: flex;
+	flex-direction: column;
+}
+
+#gallery {
 	width: 100%;
 	display: grid;
 	grid-template-columns: 1fr 1fr 1fr;
@@ -133,13 +186,13 @@ li:hover {
 	grid-row-gap: 20px;
 }
 
-.gallery img {
+#gallery img {
 	width: 100%;
 
 }
 #contact {
 	width: 50%;
-margin: auto;
+	margin: auto;
 }
 #contact > * {
 	text-align: center;

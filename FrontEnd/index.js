@@ -1,7 +1,10 @@
-function displayWorks(works) {
-  const galleryDiv = document.getElementById("gallery");
-  galleryDiv.innerHTML = "";
+const galleryDiv = document.getElementById("gallery");
+const galleryModalDiv = document.getElementById("gallery-modal");
+const deleteDiv = document.getElementById("delete");
 
+function displayWorks(works) {
+  galleryDiv.innerHTML = "";
+  
   works.forEach((work) => {
     const figure = document.createElement("figure");
     const img = document.createElement("img");
@@ -16,6 +19,24 @@ function displayWorks(works) {
     galleryDiv.appendChild(figure);
   });
 }
+
+
+function displayWorksModal(works) {
+  galleryDiv.innerHTML = "";
+  
+  works.forEach((work) => {
+    const figure = document.createElement("figure");
+    const img = document.createElement("img");
+    const deleteIcon = document.createElement("img");
+
+    img.src = work.imageUrl;
+    img.alt = work.title;
+
+    figure.appendChild(img);
+    galleryModalDiv.appendChild(figure);
+  });
+}
+
 
 async function getWorks() {
   const response = await fetch("http://localhost:5678/api/works");
@@ -33,26 +54,51 @@ async function getWorks() {
   const buttonDiv = document.getElementById("filter-buttons");
   displayWorks(works);
 
-  console.log(works);
-
-  //creation boutons
   for (let categorie of [{id:-1, name:"tous"},...categories]) {
     const button = document.createElement("button");
     button.innerHTML = categorie.name;
     buttonDiv.appendChild(button);
  
 
-  button.addEventListener('click', () => (
+  button.addEventListener('click', () => {
     displayWorks(
       categorie.id === -1 ? works : works.filter((work) => work.category.id === categorie.id)
     )
-  ))
   }
+  )}
 } 
+
+ async function modal(){
+  const response = await fetch("http://localhost:5678/api/works");
+  if (!response.ok) {
+    throw new Error(response.statusText);
+  }
+
+  const works = await response.json();
+  displayWorksModal(works);
+
+
+  let modify = document.getElementById("modify")
+  
+  let overlay = document.getElementById("overlay");
+
+  modify.addEventListener('click', () => {
+    deleteDiv.style.display = "block"
+    overlay.style.display = "block"
+  })
+
+  overlay.addEventListener ('click', () =>{
+    deleteDiv.style.display = "none"
+    overlay.style.display = "none"
+  })
+
+
+}
 
 document.addEventListener("DOMContentLoaded", async function () {
   try {
     getWorks();
+    modal();
   } catch (error) {
     console.error("Une erreur est survenue :", error);
   }
