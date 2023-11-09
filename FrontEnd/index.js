@@ -1,6 +1,6 @@
 const galleryDiv = document.getElementById("gallery");
 const galleryModalDiv = document.getElementById("gallery-modal");
-const deleteDiv = document.getElementById("delete");
+
 
 function displayWorks(works) {
   galleryDiv.innerHTML = "";
@@ -73,24 +73,42 @@ async function getWorks() {
   if (!response.ok) {
     throw new Error(response.statusText);
   }
-
+  
   const works = await response.json();
   displayWorksModal(works);
 
+  const modify = document.getElementById("modify")
+  const deleteDiv = document.getElementById("delete");
+  const addDiv = document.getElementById ("add")
+  const overlay = document.getElementById("overlay");
+  const addButton = document.getElementById("addwork");
+  const exit = document.getElementsByClassName("exit");
+  const back = document.getElementById("back");
 
-  let modify = document.getElementById("modify")
-  
-  let overlay = document.getElementById("overlay");
+
+  back.addEventListener('click',()=> {
+    addDiv.style.display = "none"
+    deleteDiv.style.display = "block"
+  })
 
   modify.addEventListener('click', () => {
     deleteDiv.style.display = "block"
     overlay.style.display = "block"
   })
 
-  overlay.addEventListener ('click', () =>{
+  addButton.addEventListener('click', () => {
     deleteDiv.style.display = "none"
-    overlay.style.display = "none"
+    addDiv.style.display = "block"
+
   })
+
+  for( let i = 0 ; i < exit.length; i++){
+    exit[i].addEventListener ('click', () => {
+      deleteDiv.style.display = "none"
+      addDiv.style.display = "none"
+      overlay.style.display = "none"
+    })
+  }
 
 
 }

@@ -160,9 +160,36 @@ li:hover {
 	width: 90%;
 }
 
+.line {
+	margin: 10px;
+	height: 1px;
+	background:#B3B3B3;
+  }
+  
+
+#addwork{
+	font-family: 'Syne';
+	font-weight: 700;
+	color: white;
+	background-color: #1D6154;
+	margin : 0 auto ;
+	width: 300px ;
+	text-align: center;
+	border-radius: 60px ;
+	height: 50px;
+	font-size: 1.2em;
+	border: none;
+	box-shadow: 0px 4px 14px rgba(0, 0, 0, 0.09);
+
+}
+
+.icons{
+	display: flex;
+	justify-content: space-between;
+}
 #add{
 	padding: 100px;
-	display: block;
+	display: none;
 	position: fixed;
 	top: 50%;
 	left: 50%;
@@ -173,10 +200,23 @@ li:hover {
 	z-index: 2;
 }
 
-#form{
+#add-content form{
 	display: flex;
 	flex-direction: column;
 }
+
+#add-content input{
+	height: 50px;
+	font-size: 1.2em;
+	border: none;
+	box-shadow: 0px 4px 14px rgba(0, 0, 0, 0.09);
+}
+
+#add-content label {
+	margin: 2em 0 1em 0;
+}
+
+
 
 #gallery {
 	width: 100%;

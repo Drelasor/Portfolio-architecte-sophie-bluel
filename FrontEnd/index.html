@@ -9,6 +9,7 @@
 	<link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=Work+Sans&display=swap" rel="stylesheet">
 	<meta name="description" content="">
 	<link rel="stylesheet" href="./assets/style.css">
+	<script src="https://kit.fontawesome.com/29c91ba032.js" crossorigin="anonymous"></script>
 
 </head>
 <body>
@@ -38,14 +39,20 @@
 	</section>
 	<section id="portfolio">
 		<div id="delete">
+			<a class ="exit"><i class="fa-solid fa-xmark"></i></a>
 			<h2>Galerie photo</h2>
 			<div id="gallery-modal"></div>
-			<button id ="addwork">Ajouter un projet</button>
+			<div class="line"></div>
+			<button id ="addwork">Ajouter une photo</button>
 		</div>
 		<div id="add">
+			<div class ="icons">
+				<a><i id="back"class="fa-solid fa-arrow-left"></i></a>
+				<a class ="exit"><i class="fa-solid fa-xmark"></i></a>
+			</div>
 			<div id="add-content">
-				<h1>Formulaire</h1>
-				<form id="form">
+				<h2>Ajout photo</h2>
+				<form action="#" method="post">
 					<label for="photo">Ajouter une photo :</label>
 					<input type="file" name="photo" id="photo" accept="image/*">
 					
@@ -58,8 +65,7 @@
 						<option value="option2">Option 2</option>
 						<option value="option3">Option 3</option>
 					</select>
-					
-					<button type="button" id="valider">Valider</button>
+					<input type="submit" value="Valider">
 				</form>
 			</div>
 		</div>
