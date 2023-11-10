@@ -22,7 +22,7 @@ function displayWorks(works) {
 
 
 function displayWorksModal(works) {
-  galleryDiv.innerHTML = "";
+  galleryModalDiv.innerHTML = "";
   
   works.forEach((work) => {
     const figure = document.createElement("figure");

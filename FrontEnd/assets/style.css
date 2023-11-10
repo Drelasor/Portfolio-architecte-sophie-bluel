@@ -53,6 +53,11 @@ body {
 	font-family: 'Work Sans' ;
 	font-size: 14px;
 }
+
+a{
+	text-decoration: none;
+	color: black;
+}
 #overlay {
 	display: none;
 	position: fixed;
