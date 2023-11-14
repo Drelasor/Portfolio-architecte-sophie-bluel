@@ -5,19 +5,30 @@ document.addEventListener('DOMContentLoaded', () => {
         const email= document.getElementById('email').value;
         const password = document.getElementById('password').value;
 
-        const response = await fetch( "http://localhost:5678/api/users/login",{
-            method : 'POST',
-            headers: {
-               "Content-Type": "application/json",
-               Accept: "application/json",
-               Authorization: "Bearer" + token 
-            },
-            body : JSON.stringify({email,password}),
-        });
+        try {
+            const response = await fetch( "http://localhost:5678/api/users/login",{
+                method : 'POST',
+                headers: {
+                   "Content-Type": "application/json",
+                   Accept: "application/json",
+                },
+                body : JSON.stringify({email,password}),
+            });
 
-     const data  = await response.json();
+            if(!response.ok){
+                alert("Vos identifiants sont incorrects");
+                return
+            }
+    
+         const data  = await response.json();
 
-     console.log(data.token)
+         localStorage.setItem("token",data.token);
+            
+         window.location.href = "./index.html";
+        
+        }catch (error){
+            alert("erreur lors du login");
+        }
 
  });
 }) ;

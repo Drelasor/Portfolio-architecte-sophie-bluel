@@ -27,12 +27,14 @@ function displayWorksModal(works) {
   works.forEach((work) => {
     const figure = document.createElement("figure");
     const img = document.createElement("img");
-    const deleteIcon = document.createElement("img");
+    const deleteIcon = document.createElement("i");
 
+    deleteIcon.classList = "fa-solid fa-trash-can";
     img.src = work.imageUrl;
     img.alt = work.title;
 
     figure.appendChild(img);
+    figure.appendChild(deleteIcon);
     galleryModalDiv.appendChild(figure);
   });
 }
@@ -54,7 +56,7 @@ async function getWorks() {
   const buttonDiv = document.getElementById("filter-buttons");
   displayWorks(works);
 
-  for (let categorie of [{id:-1, name:"tous"},...categories]) {
+  for (let categorie of [{id:-1, name:"Tous"},...categories]) {
     const button = document.createElement("button");
     button.innerHTML = categorie.name;
     buttonDiv.appendChild(button);
@@ -84,6 +86,7 @@ async function getWorks() {
   const addButton = document.getElementById("addwork");
   const exit = document.getElementsByClassName("exit");
   const back = document.getElementById("back");
+  const addContentForm = document.getElementById("add-content-form")
 
 
   back.addEventListener('click',()=> {
@@ -110,7 +113,23 @@ async function getWorks() {
     })
   }
 
+  addContentForm.addEventListener("submit", async (e)=>{
+    e.preventDefault();
 
+    try{
+      await fetch("http://localhost:5678/api/works", {
+        method: "POST",
+        headers:{
+          Accept: "application/json",
+          Authorization: "Bearer " + localStorage.getItem("token"),
+        },
+        body: new FormData(addContentForm),
+      });
+
+    }catch(error){
+      alert("erreur lors de la requête")
+    }
+  });
 }
 
 document.addEventListener("DOMContentLoaded", async function () {
