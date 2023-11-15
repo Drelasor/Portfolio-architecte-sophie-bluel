@@ -30,6 +30,7 @@ function displayWorksModal(works) {
     const deleteIcon = document.createElement("i");
 
     deleteIcon.classList = "fa-solid fa-trash-can";
+    deleteIcon.style.color = "#ffffff";
     img.src = work.imageUrl;
     img.alt = work.title;
 
