@@ -63,24 +63,34 @@
 		</form>
 	</section>
 <!--Modals-->
-	<div id="delete">
-		<a class ="exit"><i class="fa-solid fa-xmark"></i></a>
+	<div id="delete" class="dialog">
+		<a class ="exit"><i class="fa-solid fa-xmark fa-xl"></i></a>
 		<h2>Galerie photo</h2>
 		<div id="gallery-modal"></div>
 		<div class="line"></div>
 		<button id ="addwork">Ajouter une photo</button>
 	</div>
-	<div id="add">
+	<div id="add" class="dialog">
 		<div class ="icons">
-			<a><i id="back"class="fa-solid fa-arrow-left"></i></a>
-			<a class ="exit"><i class="fa-solid fa-xmark"></i></a>
+			<a><i id="back"class="fa-solid fa-arrow-left fa-xl"></i></a>
+			<a class ="exit"><i class="fa-solid fa-xmark fa-xl"></i></a>
 		</div>
 		<div id="add-content">
-			<h2>Ajout photo</h2>
+			<h2>ajout photo</h2>
 			<form action="#" method="post" id ="add-content-form">
-				<label for="photo">Ajouter une photo :</label>
-				<input type="file" name="image" id="photo" accept="image/*">
-				
+				<label for="fileInput">
+					<div id="container">
+						<img id="imgPreview" src="">
+					</div> 
+					<div id="upload">
+						<i id="upload-icon" class="fa-regular fa-image fa-9x" style="color: #B9C5CC;"></i>
+						<div id="upload-button">
+							<p>+ Ajouter une photo</p>
+						</div>
+						<p id="upload-sub">jpg, png : 4mo max</p>
+					</div>
+				</label>
+				<input type="file" name="image" id="fileInput" accept="image/*">
 				<label for="texte">Titre</label>
 				<input type="text" name="title" id="title">
 
@@ -88,7 +98,7 @@
 				<select name="category" id="category">
 					<option value="1">Objets</option>
 					<option value="2">Appartements</option>
-					<option value="3">hotels & restaurants</option>
+					<option value="3">Hotels & restaurants</option>
 				</select>
 				<input type="submit" value="Valider">
 			</form>

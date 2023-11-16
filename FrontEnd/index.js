@@ -20,7 +20,6 @@ function displayWorks(works) {
   });
 }
 
-
 function displayWorksModal(works) {
   galleryModalDiv.innerHTML = "";
   
@@ -28,15 +27,36 @@ function displayWorksModal(works) {
     const figure = document.createElement("figure");
     const img = document.createElement("img");
     const deleteIcon = document.createElement("i");
+    const backIcon = document.createElement("div")
 
+    backIcon.id = "background-icon"
     deleteIcon.classList = "fa-solid fa-trash-can";
     deleteIcon.style.color = "#ffffff";
     img.src = work.imageUrl;
     img.alt = work.title;
 
     figure.appendChild(img);
-    figure.appendChild(deleteIcon);
+    figure.appendChild(backIcon);
+    backIcon.appendChild(deleteIcon);
     galleryModalDiv.appendChild(figure);
+
+    deleteIcon.addEventListener('click', async (e)=>{
+      e.preventDefault();
+
+      try{
+        await fetch(`http://localhost:5678/api/works/${work.id}`, {
+          method: "DELETE",
+          headers:{
+            "Content-Type": "application/json",
+            Accept: "application/json",
+            Authorization: "Bearer " + localStorage.getItem("token"),
+          },
+        });
+      }catch(error){
+        alert("erreur lors de la requête")
+      }
+      displayWorksModal(works);
+    })
   });
 }
 
@@ -87,7 +107,12 @@ async function getWorks() {
   const addButton = document.getElementById("addwork");
   const exit = document.getElementsByClassName("exit");
   const back = document.getElementById("back");
-  const addContentForm = document.getElementById("add-content-form")
+  const addContentForm = document.getElementById("add-content-form");
+  const imgInput = document.getElementById("fileInput");
+  const imgPreview = document.getElementById("imgPreview");
+  const uploadDiv = document.getElementById("upload");
+  const boxImg = document.getElementById("container");
+  const modals = document.getElementsByClassName("dialog");
 
 
   back.addEventListener('click',()=> {
@@ -130,7 +155,20 @@ async function getWorks() {
     }catch(error){
       alert("erreur lors de la requête")
     }
+    for(let i = 0; i<modals.length;i++){
+      modals[i].style.display = "none";
+      overlay.style.display = "none"
+    }
   });
+
+ imgInput.addEventListener("change", (e) =>{
+  e.preventDefault();
+
+  let file = imgInput.files[0];
+  imgPreview.src = URL.createObjectURL(file);
+  uploadDiv.style.display = "none";
+  boxImg.style.display = "block";
+ })
 }
 
 document.addEventListener("DOMContentLoaded", async function () {
