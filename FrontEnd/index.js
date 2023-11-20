@@ -40,6 +40,7 @@ function displayWorksModal(works) {
     backIcon.appendChild(deleteIcon);
     galleryModalDiv.appendChild(figure);
 
+
     deleteIcon.addEventListener('click', async (e)=>{
       e.preventDefault();
 
@@ -55,27 +56,42 @@ function displayWorksModal(works) {
       }catch(error){
         alert("erreur lors de la requête")
       }
-      displayWorksModal(works);
+      initWorks();
     })
   });
 }
 
-
-async function getWorks() {
+async function initWorks(){
+  //récuperation travaux 
   const response = await fetch("http://localhost:5678/api/works");
-  const categoriesResponse = await fetch(
-    "http://localhost:5678/api/categories"
-  );
-
   if (!response.ok) {
     throw new Error(response.statusText);
   }
-
   const works = await response.json();
 
+  displayWorks(works);
+  displayWorksModal(works);
+  
+}
+
+async function filter() {
+   //récuperation travaux 
+   const response = await fetch("http://localhost:5678/api/works");
+   if (!response.ok) {
+     throw new Error(response.statusText);
+   }
+   const works = await response.json();
+  //récuperation categories
+  const categoriesResponse = await fetch("http://localhost:5678/api/categories");
+
+  if (!categoriesResponse.ok) {
+    throw new Error(response.statusText);
+  }
   const categories = await categoriesResponse.json();
   const buttonDiv = document.getElementById("filter-buttons");
-  displayWorks(works);
+  
+
+  // filtre bouton et affichage
 
   for (let categorie of [{id:-1, name:"Tous"},...categories]) {
     const button = document.createElement("button");
@@ -92,13 +108,6 @@ async function getWorks() {
 } 
 
  async function modal(){
-  const response = await fetch("http://localhost:5678/api/works");
-  if (!response.ok) {
-    throw new Error(response.statusText);
-  }
-  
-  const works = await response.json();
-  displayWorksModal(works);
 
   const modify = document.getElementById("modify")
   const deleteDiv = document.getElementById("delete");
@@ -114,7 +123,7 @@ async function getWorks() {
   const boxImg = document.getElementById("container");
   const modals = document.getElementsByClassName("dialog");
 
-
+// gestion ouverture/fermueture modal
   back.addEventListener('click',()=> {
     addDiv.style.display = "none"
     deleteDiv.style.display = "block"
@@ -139,6 +148,7 @@ async function getWorks() {
     })
   }
 
+  // Requête publication travail
   addContentForm.addEventListener("submit", async (e)=>{
     e.preventDefault();
 
@@ -155,10 +165,7 @@ async function getWorks() {
     }catch(error){
       alert("erreur lors de la requête")
     }
-    for(let i = 0; i<modals.length;i++){
-      modals[i].style.display = "none";
-      overlay.style.display = "none"
-    }
+  initWorks();
   });
 
  imgInput.addEventListener("change", (e) =>{
@@ -173,7 +180,7 @@ async function getWorks() {
 
 document.addEventListener("DOMContentLoaded", async function () {
   try {
-    getWorks();
+    initWorks();
     modal();
   } catch (error) {
     console.error("Une erreur est survenue :", error);
