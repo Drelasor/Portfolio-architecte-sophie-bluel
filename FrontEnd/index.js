@@ -149,24 +149,46 @@ async function filter() {
   }
 
   // Requête publication travail
-  addContentForm.addEventListener("submit", async (e)=>{
+  document.getElementById("add-content-form").addEventListener("submit", async (e) => {
     e.preventDefault();
 
-    try{
-      await fetch("http://localhost:5678/api/works", {
-        method: "POST",
-        headers:{
-          Accept: "application/json",
-          Authorization: "Bearer " + localStorage.getItem("token"),
-        },
-        body: new FormData(addContentForm),
-      });
+    // Récupérer les valeurs du formulaire
+    const formData = new FormData(document.getElementById("add-content-form"));
+    const title = formData.get('title');
+    const image = formData.get('image');
+    const category = formData.get('category');
 
-    }catch(error){
-      alert("erreur lors de la requête")
+    // Vérifier si les champs requis sont remplis
+    if (!title || !image || !category) {
+        alert("Veuillez remplir tous les champs du formulaire.");
+        return;  // Bloquer l'envoi de la requête si le formulaire n'est pas rempli
     }
-  initWorks();
-  });
+
+    try {
+        // Envoyer la requête si le formulaire est rempli
+        await fetch("http://localhost:5678/api/works", {
+            method: "POST",
+            headers: {
+                Accept: "application/json",
+                Authorization: "Bearer " + localStorage.getItem("token"),
+            },
+            body: formData,
+        });
+
+        // Réinitialiser le formulaire après l'envoi réussi
+        document.getElementById("add-content-form").reset();
+        document.getElementById("imgPreview").src = "";
+        uploadDiv.style.display = "flex";
+        boxImg.style.display = "none";
+        
+        alert("le travail est publié !")
+
+        // Réinitialiser la liste des œuvres
+        initWorks();
+    } catch (error) {
+        alert("Erreur lors de la requête");
+    }
+});
 
  imgInput.addEventListener("change", (e) =>{
   e.preventDefault();
@@ -181,6 +203,7 @@ async function filter() {
 document.addEventListener("DOMContentLoaded", async function () {
   try {
     initWorks();
+    filter();
     modal();
   } catch (error) {
     console.error("Une erreur est survenue :", error);
