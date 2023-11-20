@@ -177,10 +177,10 @@ async function filter() {
 
         // Réinitialiser le formulaire après l'envoi réussi
         document.getElementById("add-content-form").reset();
-        document.getElementById("imgPreview").src = "";
+        imgInput.value= ""
         uploadDiv.style.display = "flex";
         boxImg.style.display = "none";
-        
+
         alert("le travail est publié !")
 
         // Réinitialiser la liste des œuvres

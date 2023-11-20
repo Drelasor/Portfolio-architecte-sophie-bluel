@@ -305,6 +305,7 @@ label[for="fileInput"]{
 }
 
 #upload{
+	margin-top: 9px;
 	display: flex;
 	flex-direction: column;
 	align-items: center;
