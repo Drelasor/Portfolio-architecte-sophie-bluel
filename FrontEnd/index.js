@@ -1,6 +1,39 @@
 const galleryDiv = document.getElementById("gallery");
 const galleryModalDiv = document.getElementById("gallery-modal");
+const modify = document.getElementById("modify");
+const login = document.getElementById("login-nav");
+const logout = document.getElementById("logout-nav");
+const editor = document.getElementById("editor-mod");
+const buttonDiv = document.getElementById("filter-buttons");
 
+function user(){
+  console.log("user")
+  if (localStorage.getItem('token')) {
+    modify.style.display = "block";
+    editor.style.display = "flex";
+    logout.style.display = "block"; 
+    login.style.display = "none"; 
+    buttonDiv.style.display = "none";
+    document.body.style.marginTop = "90px";
+  
+  
+  } else {
+    modify.style.display = "none";
+    editor.style.display = "none";
+    logout.style.display = "none"; 
+    login.style.display = "block"; 
+    buttonDiv.style.display = "flex";
+    document.body.style.marginTop = "";
+    
+  }
+
+  logout.addEventListener('click', (e) =>{
+    e.preventDefault();
+    console.log("hehe")
+    localStorage.removeItem('token');
+    user()
+  })
+  }
 
 function displayWorks(works) {
   galleryDiv.innerHTML = "";
@@ -88,7 +121,7 @@ async function filter() {
     throw new Error(response.statusText);
   }
   const categories = await categoriesResponse.json();
-  const buttonDiv = document.getElementById("filter-buttons");
+  
   
 
   // filtre bouton et affichage
@@ -108,10 +141,8 @@ async function filter() {
 } 
 
  async function modal(){
-
-  const modify = document.getElementById("modify")
   const deleteDiv = document.getElementById("delete");
-  const addDiv = document.getElementById ("add")
+  const addDiv = document.getElementById ("add");
   const overlay = document.getElementById("overlay");
   const addButton = document.getElementById("addwork");
   const exit = document.getElementsByClassName("exit");
@@ -202,6 +233,7 @@ async function filter() {
 
 document.addEventListener("DOMContentLoaded", async function () {
   try {
+    user();
     initWorks();
     filter();
     modal();

@@ -115,7 +115,7 @@ li:hover {
 }
 #editor-mod{
 	display: flex;
-	position: absolute;
+	position: fixed;
 	left: 0;
 	top: 0;
 	justify-content: center;
@@ -132,9 +132,13 @@ li:hover {
 
 #editor{
 	display: flex;
-	justify-content: center;
 	align-items: center;
-	
+}
+
+#editor a{
+	display: flex;
+	align-items: center;
+	margin-left : 7px;
 }
 #introduction {
 	display: flex;
@@ -164,7 +168,7 @@ li:hover {
 	margin-bottom: 1em;
 }
 
-#title{
+#main-title{
 	display: flex;
 	justify-content: center;
 }
@@ -444,6 +448,7 @@ input[type="submit"]{
 	text-align: center;
 	border-radius: 60px ;
 }
+
 
 footer nav ul {
 	display: flex;
