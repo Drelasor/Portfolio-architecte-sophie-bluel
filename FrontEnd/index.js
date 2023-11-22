@@ -64,6 +64,7 @@ function displayWorksModal(works) {
 
     backIcon.id = "background-icon"
     deleteIcon.classList = "fa-solid fa-trash-can";
+    deleteIcon.classList.add('custom-size');
     deleteIcon.style.color = "#ffffff";
     img.src = work.imageUrl;
     img.alt = work.title;
