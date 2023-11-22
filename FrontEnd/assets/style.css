@@ -256,8 +256,8 @@ li:hover {
 
 #background-icon{
 	position: absolute;
-	top: 15px;
-	right:24px;
+	top: 5%;
+	right:10%;
 	height: 24px;
 	width: 23px;
 	background-color: black;
@@ -344,7 +344,7 @@ label[for="fileInput"]{
 	align-items: center;
 }
 #add-content{
-	width: 50%;
+	width: 100%;
 }
 #add-content input{
 	height: 50px;
@@ -470,7 +470,12 @@ footer nav ul {
 /* Responsive */
 @media screen and (max-width: 769px) {
 	.custom-size {
-		font-size: 16px; /* ajustez la taille selon vos besoins */
-		
+		font-size: 8px; /* ajustez la taille selon vos besoins */
 	  }
+
+	  #background-icon{
+		height: 14px;
+		width: 13px;
   }
+
+}
