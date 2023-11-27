@@ -29,9 +29,8 @@ function user(){
 
   logout.addEventListener('click', (e) =>{
     e.preventDefault();
-    console.log("hehe")
     localStorage.removeItem('token');
-    user()
+    user();
   })
   }
 
@@ -90,7 +89,9 @@ function displayWorksModal(works) {
       }catch(error){
         alert("erreur lors de la requête")
       }
-      initWorks();
+      const worksData =  await initWorks();
+      displayWorks(worksData);
+      displayWorksModal(worksData);
     })
   });
 }
@@ -102,19 +103,11 @@ async function initWorks(){
     throw new Error(response.statusText);
   }
   const works = await response.json();
+  return works
 
-  displayWorks(works);
-  displayWorksModal(works);
-  
 }
 
 async function filter() {
-   //récuperation travaux 
-   const response = await fetch("http://localhost:5678/api/works");
-   if (!response.ok) {
-     throw new Error(response.statusText);
-   }
-   const works = await response.json();
   //récuperation categories
   const categoriesResponse = await fetch("http://localhost:5678/api/categories");
 
@@ -122,7 +115,6 @@ async function filter() {
     throw new Error(response.statusText);
   }
   const categories = await categoriesResponse.json();
-  
   
 
   // filtre bouton et affichage
@@ -133,9 +125,11 @@ async function filter() {
     buttonDiv.appendChild(button);
  
 
-  button.addEventListener('click', () => {
+  button.addEventListener('click', async () => {
+    // mise à jour réponse works nécessaire =>
+    const worksData =  await initWorks();
     displayWorks(
-      categorie.id === -1 ? works : works.filter((work) => work.category.id === categorie.id)
+      categorie.id === -1 ? worksData : worksData.filter((work) => work.category.id === categorie.id)
     )
   }
   )}
@@ -190,14 +184,12 @@ async function filter() {
     const image = formData.get('image');
     const category = formData.get('category');
 
-    // Vérifier si les champs requis sont remplis
     if (!title || !image || !category) {
         alert("Veuillez remplir tous les champs du formulaire.");
-        return;  // Bloquer l'envoi de la requête si le formulaire n'est pas rempli
+        return;  
     }
 
     try {
-        // Envoyer la requête si le formulaire est rempli
         await fetch("http://localhost:5678/api/works", {
             method: "POST",
             headers: {
@@ -216,7 +208,10 @@ async function filter() {
         alert("le travail est publié !")
 
         // Réinitialiser la liste des œuvres
-        initWorks();
+        const worksData =  await initWorks();
+        displayWorks(worksData);
+        displayWorksModal(worksData);
+
     } catch (error) {
         alert("Erreur lors de la requête");
     }
@@ -235,7 +230,9 @@ async function filter() {
 document.addEventListener("DOMContentLoaded", async function () {
   try {
     user();
-    initWorks();
+      const worksData =  await initWorks();
+      displayWorks(worksData);
+      displayWorksModal(worksData);
     filter();
     modal();
   } catch (error) {
