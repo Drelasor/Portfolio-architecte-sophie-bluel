@@ -98,14 +98,18 @@ function displayWorksModal(works) {
 
 async function initWorks(){
   //récuperation travaux 
-  const response = await fetch("http://localhost:5678/api/works");
-  if (!response.ok) {
-    throw new Error(response.statusText);
+    try{
+      const response = await fetch("http://localhost:5678/api/works");
+      if (!response.ok) {
+        throw new Error(response.statusText);
+      }
+      const works = await response.json();
+      return works
+    }catch (error) {
+      console.error("Une erreur est survenue :", error);
+    }
   }
-  const works = await response.json();
-  return works
-
-}
+ 
 
 async function filter() {
   //récuperation categories
@@ -207,13 +211,13 @@ async function filter() {
 
         alert("le travail est publié !")
 
-        // Réinitialiser la liste des œuvres
+        // Réinitialiser l'affichage des œuvres
         const worksData =  await initWorks();
         displayWorks(worksData);
         displayWorksModal(worksData);
 
     } catch (error) {
-        alert("Erreur lors de la requête");
+      console.error("Une erreur est survenue :", error);
     }
 });
 
@@ -230,9 +234,9 @@ async function filter() {
 document.addEventListener("DOMContentLoaded", async function () {
   try {
     user();
-      const worksData =  await initWorks();
-      displayWorks(worksData);
-      displayWorksModal(worksData);
+    const worksData =  await initWorks();
+    displayWorks(worksData);
+    displayWorksModal(worksData);
     filter();
     modal();
   } catch (error) {
